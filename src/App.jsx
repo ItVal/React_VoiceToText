@@ -2,7 +2,18 @@ import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 
+const [isRecording, setisRecording] = useState(false);
+const [note, setNote] = useState(null);
+const [notesStore, setnotesStore] = useState([]);
 function App() {
+  const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+  const microphone = new SpeechRecognition();
+
+  microphone.continuous = true;
+  microphone.interimResults = true;
+  microphone.lang = "en-US";
+
   return (
     <>
       <h1>Voices to Notes</h1>
