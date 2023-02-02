@@ -12,17 +12,17 @@ function App() {
 
   microphone.continuous = true;
   microphone.interimResults = true;
-  microphone.lang = "en-US";
+  microphone.lang = "fr-FR";
 
   //écouter le son et le convertir en texte
   const startRecordController = () => {
-    if(isRecording){
+    if (isRecording) {
       microphone.start();
       microphone.onend = () => {
         console.log("continué...");
         microphone.start();
       };
-    }else{
+    } else {
       microphone.stop();
       microphone.onend = () => {
         console.log("Arrêt du micro sur Click");
@@ -31,7 +31,7 @@ function App() {
     microphone.onstart = () => {
       console.log("microphones on");
     };
-  
+
     microphone.onresult = (event) => {
       const recordingResult = Array.from(event.results)
         .map((result) => result[0])
@@ -46,9 +46,9 @@ function App() {
   };
 
   //appel de la fonction à chaque fois que le composant est monté
-  useEffect(() =>{
+  useEffect(() => {
     startRecordController();
-  }, [isRecording])
+  }, [isRecording]);
 
   //stocker les notes vocales
   const storeNote = () => {
