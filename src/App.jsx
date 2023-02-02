@@ -15,7 +15,40 @@ function App() {
   microphone.lang = "en-US";
 
   //écouter le son et le convertir en texte
-  const startRecordController = () => {};
+  const startRecordController = () => {
+    if(isRecording){
+      microphone.start();
+      microphone.onend = () => {
+        console.log("continué...");
+        microphone.start();
+      };
+    }else{
+      microphone.stop();
+      microphone.onend = () => {
+        console.log("Arrêt du micro sur Click");
+      };
+    }
+    microphone.onstart = () => {
+      console.log("microphones on");
+    };
+  
+    microphone.onresult = (event) => {
+      const recordingResult = Array.from(event.results)
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join("");
+      console.log(recordingResult);
+      setNote(recordingResult);
+      microphone.onerror = (event) => {
+        console.log(event.error);
+      };
+    };
+  };
+
+  //appel de la fonction à chaque fois que le composant est monté
+  useEffect(() =>{
+    startRecordController();
+  }, [isRecording])
 
   //stocker les notes vocales
   const storeNote = () => {
