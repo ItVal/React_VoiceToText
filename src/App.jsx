@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
-const [isRecording, setisRecording] = useState(false);
-const [note, setNote] = useState(null);
-const [notesStore, setnotesStore] = useState([]);
 function App() {
+  const [isRecording, setisRecording] = useState(false);
+  const [note, setNote] = useState(null);
+  const [notesStore, setnotesStore] = useState([]);
   //initialisation micro
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -76,6 +76,9 @@ function App() {
         </div>
         <div className="noteContainer">
           <h2>Notes Engestrées</h2>
+          {notesStore.map((note) => (
+            <p key={note}>{note}</p>
+          ))}
         </div>
       </div>
     </>
